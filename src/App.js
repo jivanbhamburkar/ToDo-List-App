@@ -73,28 +73,32 @@ export default function App() {
           {list.map((item, idx) => {
             return (
               <li>
-                {item}
-                <br />
-                <button
-                  onClick={() => {
-                    arr = list;
-                    arr.splice(idx, 1);
-                    setList([...arr]);
-                  }}
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={(e) => {
-                    // e.target.backgroundColor = "red";
-                    setEdit(true);
-                    setInput(list[idx]);
-                    setIndex(idx);
-                    // add(index);
-                  }}
-                >
-                  Edit
-                </button>
+                <div>
+                  <h5>{item}</h5>
+                </div>
+
+                <div>
+                  <button
+                    onClick={() => {
+                      arr = list;
+                      arr.splice(idx, 1);
+                      setList([...arr]);
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={(e) => {
+           
+                      setEdit(true);
+                      setInput(list[idx]);
+                      setIndex(idx);
+                      // add(index);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
               </li>
             );
           })}
