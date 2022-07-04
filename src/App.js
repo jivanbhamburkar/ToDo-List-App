@@ -1,25 +1,15 @@
 import { useState } from "react";
 import React from "react";
 import "./styles.css";
+import Todo from "./Todo";
 
 export default function App() {
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("");
   const [list, setList] = useState([]);
-  const [edit, setEdit] = useState(false);
-  const [index, setIndex] = useState();
 
-  var arr;
   function add() {
-    if (edit) {
-      arr = list;
-      arr.splice(index, 1, input);
-      setList([...arr]);
-      setEdit(false);
-      setInput("");
-    } else {
-      setList([...list, input]);
-      setInput("");
-    }
+    setList([...list, input]);
+    setInput("");
   }
 
   return (
@@ -34,73 +24,21 @@ export default function App() {
             setInput(e.target.value);
           }}
         />
-
-        {edit ? (
-          <>
-            <button
-              onClick={() => {
-                if (input) {
-                  add();
-                }
-              }}
-            >
-              Save
-            </button>
-            <button
-              onClick={() => {
-                setInput("");
-                setEdit(false);
-              }}
-            >
-              Cancel
-            </button>
-          </>
-        ) : (
-          <button
-            onClick={() => {
-              if (input) {
-                add();
-              }
-            }}
-          >
-            Add
-          </button>
-        )}
+        <button
+          onClick={() => {
+            if (input) {
+              add();
+            }
+          }}
+        >
+          Add
+        </button>
         <h6>By Jivan Bhamburkar</h6>
       </div>
       <div id="body">
         <ul>
           {list.map((item, idx) => {
-            return (
-              <li>
-                <div>
-                  <h5>{item}</h5>
-                </div>
-
-                <div>
-                  <button
-                    onClick={() => {
-                      arr = list;
-                      arr.splice(idx, 1);
-                      setList([...arr]);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    onClick={(e) => {
-           
-                      setEdit(true);
-                      setInput(list[idx]);
-                      setIndex(idx);
-                      // add(index);
-                    }}
-                  >
-                    Edit
-                  </button>
-                </div>
-              </li>
-            );
+            return <Todo item={item} idx={idx} list={list} setList={setList} />;
           })}
         </ul>
       </div>
